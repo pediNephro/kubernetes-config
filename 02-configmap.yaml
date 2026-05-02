@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: pedinephro
+data:
+  EUREKA_SERVER: "http://eureka.pedinephro.svc.cluster.local:8761/eureka/"
+  KEYCLOAK_SERVER_URL: "http://keycloak.pedinephro.svc.cluster.local:8080"
+  KEYCLOAK_REALM: "pedinephro"
+  SPRING_DATASOURCE_URL: "jdbc:mysql://mysql.pedinephro.svc.cluster.local:3306/pedinephro"
+  SPRING_DATASOURCE_USERNAME: "pedinephro"
+  API_URL: "http://frontend.pedinephro.svc.cluster.local"
