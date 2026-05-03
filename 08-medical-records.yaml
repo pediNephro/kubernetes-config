@@ -17,6 +17,11 @@ spec:
       - name: medical-records
         image: azizos07/medical-records:latest
         env:
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: EUREKA_SERVER
         - name: SERVER_PORT
           value: "8082"
         ports:

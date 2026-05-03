@@ -17,6 +17,11 @@ spec:
       - name: user-service
         image: azizos07/user-service:latest
         env:
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: EUREKA_SERVER
         - name: KEYCLOAK_SERVER_URL
           valueFrom:
             configMapKeyRef:

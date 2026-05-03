@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: gateway
-        image: azizos07/gateway:latest
+        image: azizos07/api-gateway:latest
         env:
         - name: SERVER_PORT
           value: "8080"
