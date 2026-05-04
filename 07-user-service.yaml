@@ -17,6 +17,17 @@ spec:
       - name: user-service
         image: azizos07/user-service:latest
         env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql:3306/pedinephro"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "pedinephro"
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: mysql-password
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           valueFrom:
             configMapKeyRef:
@@ -36,6 +47,23 @@ spec:
           value: "8081"
         ports:
         - containerPort: 8081
+        startupProbe:
+          tcpSocket:
+            port: 8081
+          failureThreshold: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 60
+          periodSeconds: 15
 ---
 apiVersion: v1
 kind: Service
