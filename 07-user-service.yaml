@@ -60,6 +60,7 @@ spec:
           httpGet:
             path: /actuator/health
             port: 8081
+          initialDelaySeconds: 30      # ← wait for app to fully start
           failureThreshold: 30
           periodSeconds: 5
 
