@@ -56,31 +56,25 @@ spec:
         - containerPort: 8081
 
         # ✅ STARTUP PROBE (wait for app boot)
-        startupProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8081
-          initialDelaySeconds: 30      # ← wait for app to fully start
-          failureThreshold: 30
-          periodSeconds: 5
+       startupProbe:
+  tcpSocket:
+    port: 8081
+  initialDelaySeconds: 30
+  failureThreshold: 30
+  periodSeconds: 5
 
-        # ✅ READINESS PROBE (ready to receive traffic)
-        readinessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8081
-          initialDelaySeconds: 20
-          periodSeconds: 10
+readinessProbe:
+  tcpSocket:
+    port: 8081
+  initialDelaySeconds: 30
+  periodSeconds: 10
 
-        # ✅ LIVENESS PROBE (is app alive)
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8081
-          initialDelaySeconds: 40
-          periodSeconds: 15
-          failureThreshold: 3
-
+livenessProbe:
+  tcpSocket:
+    port: 8081
+  initialDelaySeconds: 60
+  periodSeconds: 15
+  failureThreshold: 3
 ---
 apiVersion: v1
 kind: Service
