@@ -46,6 +46,11 @@ spec:
               key: KEYCLOAK_REALM
         - name: SERVER_PORT
           value: "8081"
+        # ✅ Override hardcoded Keycloak JWT config from application.properties
+        - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+          value: "http://keycloak.pedinephro.svc.cluster.local:8080/realms/pedinephro"
+        - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+          value: "http://keycloak.pedinephro.svc.cluster.local:8080/realms/pedinephro/protocol/openid-connect/certs"
 
         ports:
         - containerPort: 8081
