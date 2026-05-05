@@ -16,6 +16,7 @@ spec:
       containers:
       - name: user-service
         image: azizos07/user-service:latest
+
         env:
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mysql://mysql:3306/pedinephro"
@@ -45,24 +46,35 @@ spec:
               key: KEYCLOAK_REALM
         - name: SERVER_PORT
           value: "8081"
+
         ports:
         - containerPort: 8081
+
+        # ✅ STARTUP PROBE (wait for app boot)
         startupProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health
             port: 8081
-          failureThreshold: 60
+          failureThreshold: 30
           periodSeconds: 5
+
+        # ✅ READINESS PROBE (ready to receive traffic)
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health
             port: 8081
-          initialDelaySeconds: 60
+          initialDelaySeconds: 20
           periodSeconds: 10
+
+        # ✅ LIVENESS PROBE (is app alive)
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /actuator/health
             port: 8081
-          initialDelaySeconds: 90
+          initialDelaySeconds: 40
           periodSeconds: 15
           failureThreshold: 3
+
 ---
 apiVersion: v1
 kind: Service
