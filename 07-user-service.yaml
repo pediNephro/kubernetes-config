@@ -18,6 +18,17 @@ spec:
         image: azizos07/user-service:latest
 
         env:
+        - name: KEYCLOAK_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: keycloak-client-id
+
+        - name: KEYCLOAK_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: keycloak-client-secret
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mysql://mysql:3306/pedinephro"
         - name: SPRING_DATASOURCE_USERNAME
