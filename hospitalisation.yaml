@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: hospitalisation
-          image: alaadid/hospitalisation:10
+          image: alaadid/hospitalisation:11
 
           ports:
             - containerPort: 8089
