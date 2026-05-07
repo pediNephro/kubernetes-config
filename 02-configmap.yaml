@@ -3,10 +3,12 @@ kind: ConfigMap
 metadata:
   name: app-config
   namespace: pedinephro
+
 data:
-  EUREKA_SERVER: "http://eureka.pedinephro.svc.cluster.local:8761/eureka/"
-  KEYCLOAK_SERVER_URL: "http://keycloak.pedinephro.svc.cluster.local:8080"
-  KEYCLOAK_REALM: "pedinephro"
-  SPRING_DATASOURCE_URL: "jdbc:mysql://mysql.pedinephro.svc.cluster.local:3306/pedinephro"
-  SPRING_DATASOURCE_USERNAME: "pedinephro"
-  API_URL: "http://frontend.pedinephro.svc.cluster.local"
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hospitalisation
+  SPRING_DATASOURCE_USERNAME: root
+  EUREKA_SERVER: http://eureka:8761/eureka/
+
+  twilio.account.sid: "test"
+  twilio.auth.token: "test"
+  twilio.phone.number: "+10000000000"
