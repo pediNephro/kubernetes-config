@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: medical-media
+  namespace: pedinephro
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: medical-media
+
+  template:
+    metadata:
+      labels:
+        app: medical-media
+
+    spec:
+      containers:
+        - name: medical-media
+
+          image: alaadid/medical-media-service:latest
+
+          ports:
+            - containerPort: 8086
+
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka:8761/eureka/
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: medical-media
+  namespace: pedinephro
+
+spec:
+  selector:
+    app: medical-media
+
+  type: NodePort
+
+  ports:
+    - protocol: TCP
+      port: 8086
+      targetPort: 8086
+      nodePort: 30086
